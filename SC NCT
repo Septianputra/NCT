@@ -1,0 +1,61 @@
+enablezz=false
+enablesrc=false
+perte,profitmax=0,0
+
+--SETTING---------------
+div=0.001 --unité de base
+bb=div --basebet
+q=4 --increase
+qw=1  --decrease
+minchance=80
+maxchance=95
+target=balance+25 --stop si balance >= target
+limite=0 --stop si balance <= limite
+------------------------
+
+nextbet=bb
+chance=math.random(minchance*10000,maxchance*10000)/10000
+bethigh=math.random(0,100)%2==0
+
+
+function dobet()
+
+--chance/direction au hazard
+chance=math.random(minchance*10000,maxchance*10000)/10000
+bethigh=math.random(0,100)%2==0
+----------------------------
+
+     --Calcul de nextbet---------------
+    if win and currentprofit >= 0 then
+       nextbet=previousbet*qw
+    else
+       nextbet=previousbet*q
+    end
+
+    if nextbet < bb then
+       nextbet=bb
+    end
+     ----------------------------------
+
+
+     --enregistre le betid du plus gros profit--
+     if lastBet.profit >= profitmax then
+     profitmax=lastBet.profit
+     betidmax=lastBet.ID
+     end
+     print("BETID DU PROFIT MAX = " ..betidmax)
+     -------------------------------------------
+
+     --target/limite stop script----------------------------------
+    if balance >= target then
+        print("O----------O TARGET REACHED !!!!! GG O----------O")
+        stop()
+    end
+    
+    if (balance-nextbet) < (limite-0.00000001) then
+        print("O----------O BUST FAITES UNE PAUSES SVP O----------O")
+        stop()
+    end
+     -------------------------------------------------------------
+
+end

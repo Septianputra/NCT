@@ -1,0 +1,66 @@
+Rusdy Achonk:
+Nih..di bot nct
+
+ 
+
+lowbet=0.00000011
+
+highbet=balance*0.00000005946
+
+ 
+
+chance=45
+
+nextbet=lowbet
+
+bethigh=true
+
+function dobet()
+
+ 
+
+if win then
+
+ 
+
+nextbet=lowbet
+
+chance=45
+
+ 
+
+else
+
+ 
+
+nextbet=previousbet
+
+end
+
+ 
+
+if currentstreak < -1 and currentstreak > -10 then
+
+nextbet=previousbet*1.84
+
+end
+
+ 
+
+if currentstreak < -9 then
+
+nextbet=highbet
+
+end
+
+ 
+
+if currentstreak < -10 then
+
+nextbet=previousbet*1.84
+
+end
+
+ 
+
+end
